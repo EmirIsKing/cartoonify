@@ -3,6 +3,8 @@ import { useState } from "react";
 import axios from "axios";
 import Upload from "@/components/upload";
 import Image from "next/image";
+import DownloadButton from "@/components/DownloadButton";
+
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
@@ -26,6 +28,8 @@ export default function Home() {
 
       // Process with Stable Diffusion
       const cartoonRes = await axios.post('/api/cartoonify', { imageUrl });
+      console.log(cartoonRes)
+      console.log(cartoonRes.data.resultUrl)
       setResult(cartoonRes.data.resultUrl);
     } catch (err) {
       console.error(err);
@@ -59,18 +63,29 @@ export default function Home() {
         )}
       </div>
 
-      <div className="border border-gray-300 w-full max-w-md h-96 rounded-lg p-4 flex items-center justify-center">
+      <div className="border border-gray-300 w-full max-w-md min-h-[400px] justify-center items-center rounded-lg p-4 flex">
         {loading ? (
           <div className="animate-pulse">Converting image...</div>
         ) : result ? (
-          <div className="relative w-full h-full">
-            <Image
-              src={result}
-              alt="Cartoon result"
-              fill
-              className="object-contain"
-              unoptimized // Needed for external images from Replicate
-            />
+          <div className="flex flex-col w-full min-h-[400px] gap-4">
+            <div className="relative w-full min-h-[400px] flex flex-col">
+                <a 
+                  href={result} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-full relative block" 
+                  style={{ aspectRatio: '1/1' }}
+                >
+                  <Image
+                    src={result}
+                    alt="Cartoon result"
+                    fill
+                    className="object-contain cursor-pointer hover:opacity-90 transition-opacity"
+                    unoptimized
+                  />
+                </a>
+            </div>
+            <DownloadButton imageUrl={result}/>
           </div>
         ) : (
           <div className="text-gray-500">Cartoon result will appear here</div>

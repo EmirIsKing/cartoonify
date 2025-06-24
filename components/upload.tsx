@@ -12,7 +12,13 @@ export default function Upload({submit}: {submit: (file:any)=>void}) {
   }, [file])
 
   const handleFileChange = (e: any) => {
-    setFile(e.target.files[0])
+        if (e.target.files && e.target.files[0]) {
+      const selectedFile = e.target.files[0]
+      setFile(selectedFile)
+      submit(selectedFile)
+      console.log("Uploading file:", file)
+
+    }
   }
   const handleSubmit = (e: any) => {
     e.preventDefault()
@@ -25,10 +31,10 @@ export default function Upload({submit}: {submit: (file:any)=>void}) {
     <Card>
       <CardHeader>
         <CardTitle>Upload a Picture</CardTitle>
-        <CardDescription>Click to change picture.</CardDescription>
+        <CardDescription>Click to change Image.</CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit} className="grid gap-4">
+        <div className="grid gap-4">
           {
             file ? (
                 <div className={``} 
@@ -78,10 +84,9 @@ export default function Upload({submit}: {submit: (file:any)=>void}) {
                 <p className="font-medium text-wrap">{file.name}</p>
                 <p className="text-sm text-muted-foreground text-wrap">{(file.size / 1024).toFixed(2)} KB</p>
               </div>
-              <Button type="submit">Upload</Button>
             </div>
           )}
-        </form>
+        </div>
       </CardContent>
     </Card>
   )

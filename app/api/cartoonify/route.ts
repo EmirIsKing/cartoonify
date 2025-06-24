@@ -17,17 +17,21 @@ export async function POST(request: Request) {
     }
 
     const output = await replicate.run(
-      'stability-ai/stable-diffusion:ac732df83cea7fff18b8472768c88ad041fa750ff7682a21affe81863cbe77e4',
+      'black-forest-labs/flux-kontext-pro',
       {
         input: {
-          image: imageUrl,
-          prompt: 'Convert to high-quality cartoon style, Pixar animation, vibrant colors, clean lines',
-          strength: 0.6,
+          prompt: 'Make this a detailed 90s cartoon',
+          input_image: imageUrl,
+          aspect_ratio: "match_input_image",
+          output_format: "jpg",
+          safety_tolerance: 2
         },
       }
     );
 
-    return NextResponse.json({ resultUrl: output });
+    console.log(output.url())
+
+    return NextResponse.json({ resultUrl: output.url() });
   } catch (error) {
     console.error('Cartoonify error:', error);
     return NextResponse.json(
@@ -35,12 +39,4 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
-}
-
-// Optional: Add other HTTP methods if needed
-export async function GET() {
-  return NextResponse.json(
-    { error: 'Method not allowed' },
-    { status: 405 }
-  );
 }
