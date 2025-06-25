@@ -1,4 +1,4 @@
-# Group App – Cartoonify Your Images
+# Cartoonify Your Images
 
 A modern web application built with [Next.js](https://nextjs.org/) and [React](https://react.dev/) that allows users to upload an image and convert it into a high-quality cartoon using AI (Stable Diffusion via Replicate). Images are securely uploaded and stored using [Vercel Blob Storage](https://vercel.com/docs/storage/vercel-blob).
 
