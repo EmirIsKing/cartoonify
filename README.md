@@ -12,7 +12,7 @@ A modern web application built with [Next.js](https://nextjs.org/) and [React](h
 
 ## Demo
 
-![Demo Screenshot](public/demo-screenshot.png) <!-- Add a screenshot if available -->
+![Demo Screenshot](public/demo.png)
 
 ## Getting Started
 
