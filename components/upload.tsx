@@ -20,21 +20,16 @@ export default function Upload({submit}: {submit: (file:any)=>void}) {
 
     }
   }
-  const handleSubmit = (e: any) => {
-    e.preventDefault()
-    submit(file)
-    console.log("Uploading file:", file)
-  }
 
   console.log(fileUrl)
   return (
-    <Card>
+    <Card className="bg-gray-300/30 text-white border-pink-400 dashed-border w-full">
       <CardHeader>
-        <CardTitle>Upload a Picture</CardTitle>
-        <CardDescription>Click to change Image.</CardDescription>
+        <CardTitle className="text-white">Upload a Picture</CardTitle>
+        <CardDescription className="text-white">Click to change Image.</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="grid gap-4">
+        <div className="grid gap-4 pt-5">
           {
             file ? (
                 <div className={``} 
@@ -43,7 +38,7 @@ export default function Upload({submit}: {submit: (file:any)=>void}) {
                     <div className="relative w-72 h-64">
                         <label
                         htmlFor="dropzone-file"
-                        className="absolute inset-0 flex flex-col items-center justify-center border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 overflow-hidden dark:bg-gray-700">
+                        className="absolute bg-gray-300/30 inset-0 w-full flex flex-col items-center justify-center border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 overflow-hidden dark:bg-gray-700">
                             {
                                 fileUrl && (
                                         <div className="absolute inset-0">
@@ -64,14 +59,14 @@ export default function Upload({submit}: {submit: (file:any)=>void}) {
                 <div className="flex items-center justify-center w-full">
             <label
               htmlFor="dropzone-file"
-              className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+              className="flex text-white flex-col bg-transparent items-center justify-center w-full h-64 rounded-lg cursor-pointer"
             >
               <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                <UploadIcon className="w-10 h-10 text-gray-400" />
-                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                <UploadIcon className="w-10 h-10 text-white" />
+                <p className="mb-2 text-sm text-white ">
                   <span className="font-semibold">Click to upload</span> or drag and drop
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">PNG, JPG or JPEG (MAX. 800x400px)</p>
+                <p className="text-xs text-white ">PNG, JPG or JPEG (MAX. 800x400px)</p>
               </div>
               <input id="dropzone-file" type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
             </label>
