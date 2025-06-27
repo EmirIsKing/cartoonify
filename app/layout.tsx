@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Image to cartoon.",
-  description: "Turn your image into cartoon",
+  title: "Cartoonify",
+  description: "Convert your image into cartoon form",
 };
 
 export default function RootLayout({

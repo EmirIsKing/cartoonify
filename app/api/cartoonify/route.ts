@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import Replicate from 'replicate';
 
+
 const replicate = new Replicate({
   auth: process.env.REPLICATE_API_KEY!,
 });
@@ -16,7 +17,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const output = await replicate.run(
+    const output: any = await replicate.run(
       'black-forest-labs/flux-kontext-pro',
       {
         input: {
@@ -29,7 +30,6 @@ export async function POST(request: Request) {
       }
     );
 
-    console.log(output.url())
 
     return NextResponse.json({ resultUrl: output.url() });
   } catch (error) {
