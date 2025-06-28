@@ -11,10 +11,10 @@ const LandingNav = () => {
         Cartoonify
       </div>
       <div className='flex gap-4 justify-center items-center'>
-        <Link href={'#'} className='hover:opacity-90'>Features</Link>
-        <Link href='#how-it-works' className='hover:opacity-90'>How it Works</Link>
-        <Link href='/sign-in' className='hover:opacity-90'>Sign In</Link>
-        <Link href={'/sign-in'} className='hover:cursor-pointer'>
+        <Link href={'#'} className='hover:opacity-70'>Features</Link>
+        <Link href='#how-it-works' className='hover:opacity-70'>How it Works</Link>
+        <Link href='/sign-in' className='hover:opacity-70'>Sign In</Link>
+        <Link href={'/sign-up'} className='hover:cursor-pointer'>
           <Button className='p-5 rounded-full bg-button hover:cursor-pointer hover:opacity-80 active:scale-[0.97] transition-transform duration-100'>Get Started</Button>
         </Link>
       </div>
