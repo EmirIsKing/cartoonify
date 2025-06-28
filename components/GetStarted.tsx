@@ -10,7 +10,7 @@ const GetStarted = () => {
         <h1 className='text-[20px]'>Ready to Get Started?</h1>
         <h3 className='text-white/70 text-[16px]'>Join thousands of users who are already creating amazing cartoon art</h3>
         <Link href={'/sign-up'}>
-          <Button className='bg-button rounded-full py-5 px-9 shadow gap-5 hover:cursor-pointer'>
+          <Button className='bg-button rounded-full py-5 px-9 shadow gap-5 hover:cursor-pointer hover:opacity-80 active:scale-[0.97] transition-transform duration-100'>
             Start Your Free Trial
             <span>
                 <ButtonStarSvg/>

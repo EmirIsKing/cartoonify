@@ -3,10 +3,10 @@ import CameraSvg from '@/public/CameraSvg'
 
 const Logo = () => {
   return (
-    <div className='flex gap-2 justify-center items-center'>
+    <a href='/' className='flex gap-2 justify-center items-center'>
         <CameraSvg/>
         Cartoonify
-    </div>
+    </a>
   )
 }
 

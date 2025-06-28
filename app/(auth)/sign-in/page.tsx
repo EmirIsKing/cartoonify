@@ -1,11 +1,54 @@
-import React from 'react'
+'use client'
+import React,{useState} from 'react'
 import Logo from '@/components/Logo'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Button } from '@/components/ui/button'
+import { supabase } from '@/lib/supabaseClient'
+import { useRouter } from 'next/navigation'
+import Loader from '@/components/Loader'
 
 const Page = () => {
+
+
+    const [email, setEmail] = useState("")
+    const [password, setpassword] = useState("")
+    const [showPassword, setShowPassword] = useState(false)
+    const [errorMsg, setErrorMsg] = useState("");
+    const [rememberMe, setRememberMe] = useState(false);
+    const [loading, setLoading] = useState(false)
+    const router = useRouter();
+
+    const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.target.value);
+    };
+
+    const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setpassword(e.target.value);
+    };
+
+    async function loginUser() {
+        setLoading(true)
+        const { data , error } = await supabase.auth.signInWithPassword({
+            email,
+            password,
+        })
+
+        if (!rememberMe) {
+            window.addEventListener("beforeunload", () => {
+            supabase.auth.signOut();
+            });
+        }
+
+        if (error) {
+            setErrorMsg(error.message);
+        } else {
+        router.push('/cartoonify');
+        }
+        setLoading(false)
+    }
+
   return (
     <div className='w-full h-full'>
         <div className='absolute w-full h-full pointer-events-none'>
@@ -23,22 +66,43 @@ const Page = () => {
                 <div className='flex w-full flex-col justify-center gap-3 items-center'>
                     <div className='grid w-full items-center gap-3'>
                         <Label htmlFor="email" className='font-bold'>Email</Label>
-                        <Input type="email" id="email" className='bg-white/20 text-white h-10 placeholder:text-white'/>
+                        <Input type="email" id="email" value={email} onChange={handleEmail} className='bg-white/20 text-white h-10 placeholder:text-white'/>
                     </div>
                     <div className='grid w-full items-center gap-3'>
                         <Label htmlFor="password" className='font-bold'>Password</Label>
-                        <Input type="password" id="password" className='bg-white/20 h-10 text-white placeholder:text-white'/>
+                        <div className="relative w-full">
+                            <Input
+                            required
+                                type={showPassword ? 'text' : 'password'}
+                                value={password}
+                                onChange={handlePassword}
+                                id="password"
+                                className="bg-white/20 h-10 text-white placeholder:text-white pr-10"
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-2 top-2 text-sm text-white"
+                            >
+                                {showPassword ? 'Hide' : 'Show'}
+                            </button>
+                            </div>
                     </div>
                 </div>
+                {errorMsg && <p className='text-red-500 text-sm'>{errorMsg}</p>}
                 <div className='w-full justify-between flex'>
                     <div className='flex items-center justify-center gap-2'>
-                        <Checkbox id='rememberme'/>
-                        <Label>Remember me</Label>
+                        <Checkbox
+                            id="rememberMe"
+                            checked={rememberMe}
+                            onCheckedChange={(checked) => setRememberMe(checked === true)}
+                        />
+                        <Label htmlFor="rememberMe">Remember me</Label>
                     </div>
                     <a>Forgot Password</a>
                 </div>
-                <Button className='bg-button rounded-md w-full py-5 px-9 shadow gap-5 hover:cursor-pointer'>
-                    Sign In
+                <Button onClick={loginUser} className='bg-button rounded-md w-full py-5 px-9 shadow gap-5 hover:cursor-pointer hover:opacity-80 active:scale-[0.97] transition-transform duration-100'>
+                    {loading ? <Loader size={30}/>: "Sign In"}
                 </Button>
                 <span className='font-bold text-xs'>Don't have an account? <a href='/sign-up' className='text-pink-400'>Sign Up</a></span>
             </div>
