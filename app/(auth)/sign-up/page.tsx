@@ -128,7 +128,7 @@ async function signUpNewUser() {
                 signUpNewUser();}} className='flex flex-col rounded-md bg-white/9 border gap-5 border-gray-300/30 p-9 justify-center items-center'>
                 <div className='flex flex-col justify-center gap-3 items-center'>
                     <h1 className='font-bold text-5xl'>Welcome</h1>
-                    <h3>Sign into your account to start converting photos</h3>
+                    <h3 className='max-md:text-center'>Sign into your account to start converting photos.</h3>
                 </div>
                 <div className='flex w-full flex-col justify-center gap-3 items-center'>
                     <div className='grid w-full items-center gap-3'>
@@ -189,7 +189,7 @@ async function signUpNewUser() {
                         checked={agreedToTerms}
                         onCheckedChange={(checked) => setAgreedToTerms(checked === true)}
                     />
-                      <Label htmlFor="termsofservices">I agree to the <span className='text-pink-400'>Terms of Service</span> and <span className='text-pink-400'>Privacy Policy</span></Label>
+                      <Label htmlFor="termsofservices" className="max-md:flex max-md:w-full whitespace-nowrap">I agree to the <span className='text-pink-400'>Terms of Service</span> and <span className='text-pink-400'>Privacy Policy</span></Label>
                     </div>
                 </div>
                 <Button type='submit' disabled={!agreedToTerms || !passwordChecker} className={'bg-button rounded-md w-full py-5 px-9 shadow gap-5 hover:cursor-pointer hover:opacity-80 active:scale-[0.97] transition-transform duration-100'}>

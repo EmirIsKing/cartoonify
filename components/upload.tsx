@@ -23,7 +23,7 @@ export default function Upload({submit}: {submit: (file:any)=>void}) {
 
   console.log(fileUrl)
   return (
-    <Card className="bg-gray-300/30 text-white border-pink-400 dashed-border w-full">
+    <Card className="bg-gray-300/30 text-white border-pink-400 dashed-border w-full max-md:p-2">
       <CardHeader>
         <CardTitle className="text-white">Upload a Picture</CardTitle>
         <CardDescription className="text-white">Click to change Image.</CardDescription>
@@ -32,13 +32,13 @@ export default function Upload({submit}: {submit: (file:any)=>void}) {
         <div className="grid gap-4 pt-5">
           {
             file ? (
-                <div className={``} 
+                <div className={`flex justify-center items-center`} 
                 
                 >
                     <div className="relative w-72 h-64">
                         <label
                         htmlFor="dropzone-file"
-                        className="absolute bg-gray-300/30 inset-0 w-full flex flex-col items-center justify-center border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 overflow-hidden dark:bg-gray-700">
+                        className="absolute bg-gray-300/30 inset-0 w-full flex flex-col items-center justify-center border-2 border-gray-300 border-dashed rounded-lg cursor-pointer overflow-hidden dark:bg-gray-700">
                             {
                                 fileUrl && (
                                         <div className="absolute inset-0">

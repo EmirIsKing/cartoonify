@@ -61,7 +61,7 @@ const Page = () => {
             <div className='flex flex-col rounded-md bg-white/9 border gap-5 border-gray-300/30 p-9 justify-center items-center'>
                 <div className='flex flex-col justify-center gap-3 items-center'>
                     <h1 className='font-bold text-5xl'>Welcome Back</h1>
-                    <h3>Sign into your account to start converting photos</h3>
+                    <h3 className='max-md:text-center'>Sign into your account to start converting photos.</h3>
                 </div>
                 <div className='flex w-full flex-col justify-center gap-3 items-center'>
                     <div className='grid w-full items-center gap-3'>

@@ -167,6 +167,11 @@
   padding: 20px;
   display: inline-block;
   color: white;
+  @media (width < 48rem) {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
 }
 
 

@@ -10,7 +10,7 @@ import Footer from '@/components/Footer'
 
 const page = () => {
   return (
-    <div className='flex flex-col max-w-[100vw]'>
+    <div className='flex flex-col'>
       <section className='sticky top-0 z-[999] backdrop-blur-md'>
         <LandingNav/>
       </section>

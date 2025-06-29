@@ -16,7 +16,9 @@ const DashboardNav = () => {
         const {error} = await supabase.auth.signOut()
         setloading(false)
         if (error) {
-           console.error(error) 
+           localStorage.clear();
+           sessionStorage.clear();
+           router.push('/sign-in')
         } else {
             router.push('/sign-in')
         }

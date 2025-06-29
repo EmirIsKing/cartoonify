@@ -23,9 +23,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="bg-[#312e81]">
       <body
-        className={`custom-text-font antialiased bg-gradient-custom`}
+        className={`custom-text-font antialiased bg-gradient-custom h-full`}
       >
         {children}
       </body>

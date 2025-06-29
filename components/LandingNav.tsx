@@ -6,7 +6,7 @@ import LandingHamburger from './LandingHamburger'
 
 const LandingNav = () => {
   return (
-    <div className='w-full sticky top-0 px-20 max-md:px-3 flex justify-between items-center bg-white/10 h-20 border-b border-gray-300/30'>
+    <div className='w-full px-20 max-md:px-3 flex justify-between items-center bg-white/10 h-20 border-b border-gray-300/30'>
       <div className='flex gap-2 justify-center items-center'>
         <CameraSvg/>
         Cartoonify
