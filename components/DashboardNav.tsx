@@ -24,7 +24,7 @@ const DashboardNav = () => {
 
 
   return (
-    <div className='fixed w-full flex top-0 justify-end items-center p-3'>
+    <div className='w-full flex top-0 justify-end items-center p-3'>
       <Button 
         onClick={handleClick} 
         className='bg-red-500 hover:bg-red-500/80 active:scale-[0.97] transition-transform duration-100 hover:cursor-pointer'>

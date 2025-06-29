@@ -47,11 +47,11 @@ export default function Cartoonify() {
 
   return (
     <div className="flex flex-col items-center justify-center gap-8 min-h-screen p-4">
-      <div className="flex flex-col justify-center items-center gap-3">
-        <h1 className="text-5xl font-semibold">Transform Your Photos into Cartoons</h1>
+      <div className="flex flex-col justify-center items-center gap-3 pt-6">
+        <h1 className="text-5xl font-semibold max-md:text-3xl">Transform Your Photos into Cartoons</h1>
         <h3 className="text-white/80 text-xl">Upload any photo and watch our AI turn it inot amzing cartoon art.</h3>
       </div>
-      <div className="w-full flex justify-center items-center gap-7">
+      <div className="w-full flex max-md:flex-col justify-center items-center gap-7">
         <div className="border border-gray-300 bg-gray-300/35 w-full max-w-md h-auto rounded-xl p-4">
         <Upload submit={handlePictureUpload} />
         {file && (

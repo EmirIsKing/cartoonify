@@ -5,7 +5,7 @@ const HowItWorks = () => {
     <div className='w-full p-10 flex flex-col justify-center items-center gap-3 text-center'>
       <h1 className='text-center text-2xl'>How It Works</h1>
       <h3 className='text-center'>Three simple steps to cartoon magic.</h3>
-      <div className='w-full flex justify-center items-center gap-5'>
+      <div className='w-full flex justify-center items-center gap-5 max-md:flex-col'>
             <div className="flex justify-center items-center flex-col gap-2 p-7">
                 <div className="bg-[linear-gradient(90deg,rgba(236,72,153,1)_0%,rgba(147,51,234,1)_100%)] text-white font-semibold flex items-center justify-center rounded-full w-10 h-10">
                     1

@@ -118,8 +118,8 @@ async function signUpNewUser() {
     <div className='w-full h-full'>
         <div className='absolute w-full h-full pointer-events-none'>
             <div className='bg-[#F472B633] rounded-full w-20 h-20 blur-sm relative top-[80px] left-[40px]'></div>
-            <div className='bg-[#C084FC33] rounded-full w-32 h-32 blur-sm relative top-[160px] left-[1232px]'></div>
-            <div className='bg-[#60A5FA33] rounded-full w-16 h-16 blur-sm relative top-[120px] left-[360px]'></div>
+            <div className='bg-[#C084FC33] rounded-full max-md:left-[250px] max-md:top-[120px] w-32 h-32 blur-sm relative top-[160px] left-[1232px]'></div>
+            <div className='bg-[#60A5FA33] rounded-full max-md:left-[240px] max-md:top-[250px] w-16 h-16 blur-sm relative top-[120px] left-[360px]'></div>
         </div>
         <div className='w-full h-screen flex flex-col justify-center items-center gap-5'>
             <Logo/>
@@ -127,7 +127,7 @@ async function signUpNewUser() {
                 e.preventDefault();
                 signUpNewUser();}} className='flex flex-col rounded-md bg-white/9 border gap-5 border-gray-300/30 p-9 justify-center items-center'>
                 <div className='flex flex-col justify-center gap-3 items-center'>
-                    <h1 className='font-bold text-5xl'>Welcome Back</h1>
+                    <h1 className='font-bold text-5xl'>Welcome</h1>
                     <h3>Sign into your account to start converting photos</h3>
                 </div>
                 <div className='flex w-full flex-col justify-center gap-3 items-center'>

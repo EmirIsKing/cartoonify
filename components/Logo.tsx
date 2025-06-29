@@ -5,7 +5,7 @@ const Logo = () => {
   return (
     <a href='/' className='flex gap-2 justify-center items-center'>
         <CameraSvg/>
-        Cartoonify
+        <span className='max-md:hidden'>Cartoonify</span>
     </a>
   )
 }

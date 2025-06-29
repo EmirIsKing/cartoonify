@@ -10,7 +10,7 @@ const WhyChoose = () => {
     <div className='w-full p-10 flex flex-col justify-center items-center gap-5 backdrop-blur-lg bg-white/10'>
       <h1 className='text-4xl'>Why Choose Cartoonify</h1>
       <h3 className='text-xl opacity-70'>Discover the magic of AI-powered photo transformation</h3>
-      <div className='flex w-full gap-5 items-center justify-center'>
+      <div className='flex w-full gap-5 items-center justify-center max-md:flex-col'>
         <WhyChooseCards
             title={'Lightning Fast'}
             details1={'Convert your photos in seconds with our'}

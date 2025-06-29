@@ -53,8 +53,8 @@ const Page = () => {
     <div className='w-full h-full'>
         <div className='absolute w-full h-full pointer-events-none'>
             <div className='bg-[#F472B633] rounded-full w-20 h-20 blur-sm relative top-[80px] left-[40px]'></div>
-            <div className='bg-[#C084FC33] rounded-full w-32 h-32 blur-sm relative top-[160px] left-[1232px]'></div>
-            <div className='bg-[#60A5FA33] rounded-full w-16 h-16 blur-sm relative top-[120px] left-[360px]'></div>
+            <div className='bg-[#C084FC33] max-md:left-[250px] max-md:top-[120px] rounded-full w-32 h-32 blur-sm relative top-[160px] left-[1232px]'></div>
+            <div className='bg-[#60A5FA33] max-md:left-[240px] max-md:top-[250px] rounded-full w-16 h-16 blur-sm relative top-[120px] left-[360px]'></div>
         </div>
         <div className='w-full h-screen flex flex-col justify-center items-center gap-5'>
             <Logo/>
