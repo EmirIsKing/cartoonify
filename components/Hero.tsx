@@ -8,7 +8,7 @@ const Hero = () => {
     <div className='relative'>
         <div className='flex flex-col gap-4 p-20 justify-center items-center max-md:p-5'>
             <h1 className='text-center text-7xl leading-tight max-md:text-5xl'>Transform Your Photos into <br/><span className='bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent'>Amazing Cartoons</span></h1>
-            <h2 className='text-xl text-center font-normal text-white/90'>Turn your ordinary photos into stunning cartoon masterpieces with our AI-powered <br/>converter. Fast, easy, and absolutely magical!</h2>
+            <h2 className='text-xl text-center font-normal text-white/90 max-md:text-sm'>Turn your ordinary photos into stunning cartoon masterpieces with our AI-powered <br/>converter. Fast, easy, and absolutely magical!</h2>
             <Link href={'/sign-in'}>
                 <Button className='bg-button rounded-full py-5 px-9 shadow gap-5 hover:cursor-pointer hover:opacity-80 active:scale-[0.97] transition-transform duration-100'>
                     Start Converting Now
