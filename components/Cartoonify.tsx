@@ -5,6 +5,7 @@ import Upload from "@/components/upload";
 import Image from "next/image";
 import DownloadButton from "@/components/DownloadButton";
 import CameraSvg from "@/public/CameraSvg";
+import { supabase } from "@/lib/supabaseClient";
 
 
 export default function Cartoonify() {
@@ -12,6 +13,8 @@ export default function Cartoonify() {
   const [file, setFile] = useState<File | null>(null);
   const [result, setResult] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+
 
   const handleUpload = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,12 +26,15 @@ export default function Cartoonify() {
     formData.append('file', file);
 
     try {
+          const { data: sessionData } = await supabase.auth.getSession();
+          const user = sessionData.session?.user;
+
       // Upload to Vercel Blob
       const uploadRes = await axios.post('/api/upload', formData);
       const imageUrl = uploadRes.data.url;
 
       // Process with Stable Diffusion
-      const cartoonRes = await axios.post('/api/cartoonify', { imageUrl });
+      const cartoonRes = await axios.post('/api/cartoonify', { imageUrl, userId: user?.id });
       console.log(cartoonRes)
       console.log(cartoonRes.data.resultUrl)
       setResult(cartoonRes.data.resultUrl);
@@ -49,7 +55,7 @@ export default function Cartoonify() {
     <div className="flex flex-col items-center justify-center gap-8 min-h-screen p-4">
       <div className="flex flex-col justify-center items-center gap-3 pt-6">
         <h1 className="text-5xl font-semibold max-md:text-3xl">Transform Your Photos into Cartoons</h1>
-        <h3 className="text-white/80 text-xl">Upload any photo and watch our AI turn it inot amzing cartoon art.</h3>
+        <h3 className="text-white/80 text-xl">Upload any photo and watch our AI turn it into an amzing cartoon art.</h3>
       </div>
       <div className="w-full flex max-md:flex-col justify-center items-center gap-7">
         <div className="border border-gray-300 bg-gray-300/35 w-full max-w-md h-auto rounded-xl p-4">

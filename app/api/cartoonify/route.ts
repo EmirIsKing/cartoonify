@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import Replicate from 'replicate';
+import { supabase } from '@/lib/supabaseClient';
 
 
 const replicate = new Replicate({
@@ -8,7 +9,7 @@ const replicate = new Replicate({
 
 export async function POST(request: Request) {
   try {
-    const { imageUrl } = await request.json();
+    const { imageUrl, userId } = await request.json();
 
     if (!imageUrl) {
       return NextResponse.json(
@@ -29,6 +30,26 @@ export async function POST(request: Request) {
         },
       }
     );
+
+      const { data, error: fetchError } = await supabase
+        .from('users')
+        .select('history')
+        .eq('id', userId)
+        .single();
+
+      if (fetchError) {
+        console.error(fetchError);
+      } else {
+        const currentHistory = data.history || [];
+
+        const { error: updateError } = await supabase
+          .from('users')
+          .update({ history: [...currentHistory, output.url()] })
+          .eq('id', userId);
+
+        if (updateError) console.error(updateError);
+      }
+
 
 
     return NextResponse.json({ resultUrl: output.url() });
