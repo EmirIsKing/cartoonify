@@ -78,12 +78,12 @@ export default function Cartoonify() {
       <div className="flex flex-col justify-center items-center gap-3 pt-6">
         <h1 className="text-5xl font-semibold max-md:text-3xl">Transform Your Photos into Cartoons</h1>
         <h3 className="text-white/80 text-xl">Upload any photo and watch our AI turn it into an amzing cartoon art.</h3>
-        {limitInfo && (
+        {/* {limitInfo && (
           <div className="mt-2 text-sm text-white/80 bg-gray-800/60 rounded px-4 py-2">
             <span>Daily uses left: <b>{limitInfo.remaining}</b> / 5</span><br />
             <span>Resets: <b>{new Date(limitInfo.resetAt).toLocaleString()}</b></span>
           </div>
-        )}
+        )} */}
       </div>
       <div className="w-full flex max-md:flex-col justify-center items-center gap-7">
         <div className="border border-gray-300 bg-gray-300/35 w-full max-w-md h-auto rounded-xl p-4">
