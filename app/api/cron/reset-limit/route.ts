@@ -3,9 +3,10 @@ import { type NextRequest } from 'next/server'
 
 export const dynamic = 'force-dynamic' // Required for cron jobs
 
-export async function POST(req: NextRequest) {
-  // Verify cron secret
-  if (req.headers.get('authorization') !== `Bearer ${process.env.CRON_SECRET}`) {
+export async function GET(req: NextRequest) {
+  
+  const secret = req.nextUrl.searchParams.get('secret')
+  if (secret !== process.env.CRON_SECRET) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' }
