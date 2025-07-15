@@ -1,7 +1,7 @@
 {
   "crons": [
     {
-      "path": "/api/cron",
+      "path": "/api/cron/reset-limit",
       "schedule": "0 0 * * *"
     }
   ]
