@@ -1,9 +1,15 @@
 {
+  "rewrites": [
+    {
+      "source": "/cron/reset-limits",
+      "destination": "/api/cron/reset",
+      "method": "POST"
+    }
+  ],
   "crons": [
     {
-      "path": "/api/cron/reset-limit",
-      "schedule": "0 0 * * *",
-      "method": "POST"
+      "path": "/cron/reset-limits",
+      "schedule": "0 0 * * *"
     }
   ]
 }
