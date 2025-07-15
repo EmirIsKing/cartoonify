@@ -2,8 +2,7 @@
   "crons": [
     {
       "path": "/api/cron/reset-limit",
-      "schedule": "0 0 * * *",
-      "method": "POST"
+      "schedule": "0 0 * * *"
     }
   ]
 }
