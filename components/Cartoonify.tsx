@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Upload from "@/components/upload";
 import Image from "next/image";
@@ -13,7 +13,23 @@ export default function Cartoonify() {
   const [file, setFile] = useState<File | null>(null);
   const [result, setResult] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [rateLimit, setRateLimit] = useState<{ count: number; reset: number } | null>(null);
 
+  useEffect(() => {
+    // Fetch rate limit status for the current user
+    async function fetchRateLimit() {
+      try {
+        const res = await fetch('/api/cartoonify/limit');
+        if (res.ok) {
+          const data = await res.json();
+          setRateLimit(data);
+        }
+      } catch (e) {
+        // ignore
+      }
+    }
+    fetchRateLimit();
+  }, []);
 
 
   const handleUpload = async (e: React.FormEvent) => {
@@ -56,6 +72,16 @@ export default function Cartoonify() {
       <div className="flex flex-col justify-center items-center gap-3 pt-6">
         <h1 className="text-5xl font-semibold max-md:text-3xl">Transform Your Photos into Cartoons</h1>
         <h3 className="text-white/80 text-xl">Upload any photo and watch our AI turn it into an amzing cartoon art.</h3>
+        {/* Rate limit status */}
+        {rateLimit && (
+          <div className="mt-2 text-sm text-white/80">
+            {rateLimit.count < 3 ? (
+              <>You have {3 - rateLimit.count}/3 cartoonify requests left today.</>
+            ) : (
+              <span className="text-red-400">You have reached your daily cartoonify limit. Try again after {new Date(rateLimit.reset).toLocaleTimeString()}.</span>
+            )}
+          </div>
+        )}
       </div>
       <div className="w-full flex max-md:flex-col justify-center items-center gap-7">
         <div className="border border-gray-300 bg-gray-300/35 w-full max-w-md h-auto rounded-xl p-4">
