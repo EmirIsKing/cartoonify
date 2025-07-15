@@ -7,34 +7,40 @@ import DownloadButton from "@/components/DownloadButton";
 import CameraSvg from "@/public/CameraSvg";
 import { supabase } from "@/lib/supabaseClient";
 
-
 export default function Cartoonify() {
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [result, setResult] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [rateLimit, setRateLimit] = useState<{ count: number; reset: number } | null>(null);
+  const [limitInfo, setLimitInfo] = useState<{remaining: number, resetAt: string, allowed: boolean} | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
 
+  // Fetch user and limit info on mount
   useEffect(() => {
-    // Fetch rate limit status for the current user
-    async function fetchRateLimit() {
-      try {
-        const res = await fetch('/api/cartoonify/limit');
-        if (res.ok) {
-          const data = await res.json();
-          setRateLimit(data);
-        }
-      } catch (e) {
-        // ignore
+    const fetchUserAndLimit = async () => {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const user = sessionData.session?.user;
+      if (user?.id) {
+        setUserId(user.id);
+        await fetchLimit(user.id);
       }
-    }
-    fetchRateLimit();
+    };
+    fetchUserAndLimit();
   }, []);
 
+  // Fetch limit info
+  const fetchLimit = async (uid: string) => {
+    try {
+      const res = await axios.post('/api/limit', { userId: uid });
+      setLimitInfo(res.data);
+    } catch (err) {
+      setLimitInfo(null);
+    }
+  };
 
   const handleUpload = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!file) return;
+    if (!file || !userId) return;
 
     setLoading(true);
     setError(null);
@@ -42,21 +48,21 @@ export default function Cartoonify() {
     formData.append('file', file);
 
     try {
-          const { data: sessionData } = await supabase.auth.getSession();
-          const user = sessionData.session?.user;
-
       // Upload to Vercel Blob
       const uploadRes = await axios.post('/api/upload', formData);
       const imageUrl = uploadRes.data.url;
 
       // Process with Stable Diffusion
-      const cartoonRes = await axios.post('/api/cartoonify', { imageUrl, userId: user?.id });
-      console.log(cartoonRes)
-      console.log(cartoonRes.data.resultUrl)
+      const cartoonRes = await axios.post('/api/cartoonify', { imageUrl, userId });
       setResult(cartoonRes.data.resultUrl);
-    } catch (err) {
-      console.error(err);
-      setError('Failed to process image. Please try again.');
+      await fetchLimit(userId); // Refresh limit info after use
+    } catch (err: any) {
+      if (err?.response?.status === 429 && err?.response?.data?.error) {
+        setError(err.response.data.error);
+      } else {
+        setError('Failed to process image. Please try again.');
+      }
+      await fetchLimit(userId); // Still refresh limit info
     } finally {
       setLoading(false);
     }
@@ -72,14 +78,10 @@ export default function Cartoonify() {
       <div className="flex flex-col justify-center items-center gap-3 pt-6">
         <h1 className="text-5xl font-semibold max-md:text-3xl">Transform Your Photos into Cartoons</h1>
         <h3 className="text-white/80 text-xl">Upload any photo and watch our AI turn it into an amzing cartoon art.</h3>
-        {/* Rate limit status */}
-        {rateLimit && (
-          <div className="mt-2 text-sm text-white/80">
-            {rateLimit.count < 3 ? (
-              <>You have {3 - rateLimit.count}/3 cartoonify requests left today.</>
-            ) : (
-              <span className="text-red-400">You have reached your daily cartoonify limit. Try again after {new Date(rateLimit.reset).toLocaleTimeString()}.</span>
-            )}
+        {limitInfo && (
+          <div className="mt-2 text-sm text-white/80 bg-gray-800/60 rounded px-4 py-2">
+            <span>Daily uses left: <b>{limitInfo.remaining}</b> / 5</span><br />
+            <span>Resets: <b>{new Date(limitInfo.resetAt).toLocaleString()}</b></span>
           </div>
         )}
       </div>
@@ -90,9 +92,9 @@ export default function Cartoonify() {
           <div className="mt-4">
             <button
               onClick={handleUpload}
-              disabled={loading}
+              disabled={loading || !!(limitInfo && limitInfo.remaining <= 0)}
               className={`w-full py-2 px-4 rounded-md ${
-                loading ? 'bg-gray-400' : 'bg-blue-600 hover:bg-blue-700'
+                loading || (limitInfo && limitInfo.remaining <= 0) ? 'bg-gray-400' : 'bg-blue-600 hover:bg-blue-700'
               } text-white transition-colors`}
             >
               {loading ? 'Processing...' : 'Convert to Cartoon'}
