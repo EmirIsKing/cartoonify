@@ -8,6 +8,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { supabase } from '@/lib/supabaseClient'
 import Loader from '@/components/Loader'
 import { useRouter } from 'next/navigation'
+import Cartoonify from '@/components/Cartoonify'
 
 const Page = () => {
 
@@ -93,11 +94,15 @@ async function signUpNewUser() {
     return;
   }
 
+  const now = new Date();
+  const resetAt = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1));
+
   const { error: insertError } = await supabase.from('users').insert({
     id: user.id,
     email,
     full_name: fullName,
     history: [],
+    cartoonify_limit: {count:5, resetAt}
   });
 
   setLoading(false);

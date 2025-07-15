@@ -24,12 +24,15 @@ export async function POST(request: Request) {
     }
 
     // Rate limit check
-    const limitRes = await fetch(`/api/limit`, {
+
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const limitRes = await fetch(`${baseUrl}/api/limit`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userId }),
     });
-    const limitData = await limitRes.json();
+     const limitData = await limitRes.json();
+     console.log(limitRes)
     if (!limitData.allowed) {
       return NextResponse.json(
         { error: `Daily limit reached. Try again after ${limitData.resetAt}.` },
