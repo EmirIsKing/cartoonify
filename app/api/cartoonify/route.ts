@@ -33,12 +33,12 @@ export async function POST(request: Request) {
     });
      const limitData = await limitRes.json();
      console.log(limitRes)
-    if (!limitData.allowed) {
-      return NextResponse.json(
-        { error: `Daily limit reached. Try again after ${limitData.resetAt}.` },
-        { status: 429 }
-      );
-    }
+    // if (!limitData.allowed) {
+    //   return NextResponse.json(
+    //     { error: `Daily limit reached. Try again after ${limitData.resetAt}.` },
+    //     { status: 429 }
+    //   );
+    // }
 
     const output: any = await replicate.run(
       'black-forest-labs/flux-kontext-pro',
