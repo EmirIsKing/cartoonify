@@ -92,7 +92,7 @@ export default function Cartoonify() {
           <div className="mt-4">
             <button
               onClick={handleUpload}
-              disabled={loading || !!(limitInfo && limitInfo.remaining <= 0)}
+              disabled={loading}
               className={`w-full py-2 px-4 rounded-md ${
                 loading || (limitInfo && limitInfo.remaining <= 0) ? 'bg-gray-400' : 'bg-blue-600 hover:bg-blue-700'
               } text-white transition-colors`}
