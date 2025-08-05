@@ -94,7 +94,7 @@ export default function Cartoonify() {
               onClick={handleUpload}
               disabled={loading}
               className={`w-full py-2 px-4 rounded-md ${
-                loading || (limitInfo && limitInfo.remaining <= 0) ? 'bg-gray-400' : 'bg-blue-600 hover:bg-blue-700'
+                loading ? 'bg-gray-400' : 'bg-blue-600 hover:bg-blue-700'
               } text-white transition-colors`}
             >
               {loading ? 'Processing...' : 'Convert to Cartoon'}
